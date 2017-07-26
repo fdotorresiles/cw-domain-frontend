@@ -1,0 +1,63 @@
+<div layout="column" style="height:100vh;" ng-cloak>
+  <section layout="row" flex>
+
+    <!-- Side nav mobile -->  
+    <md-sidenav
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-whiteframe="4">
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">CW</h1>
+      </md-toolbar>
+      <md-content>
+        <md-list style="position:relative">
+          <md-list-item ui-sref="main.home" ui-sref-active="active-menu">
+            <md-icon><i class="material-icons">perm_identity</i></md-icon>
+            <p>Usuarios</p>
+          </md-list-item>
+          <md-list-item ui-sref="main.domain" ui-sref-active="active-menu">
+            <md-icon><i class="material-icons">cloud_queue</i></md-icon>
+            <p>Dominios</p>
+          </md-list-item>
+          <md-list-item ui-sref="main.search" ui-sref-active="active-menu">
+            <md-icon><i class="material-icons">search</i></md-icon>
+            <p>Busqueda</p>
+          </md-list-item>
+          <md-list-item ui-sref="main.settings" ui-sref-active="active-menu">
+            <md-icon><i class="material-icons">settings</i></md-icon>
+            <p>Configuración</p>
+          </md-list-item>
+        </md-list>
+      </md-content>
+    </md-sidenav>
+
+    <!-- content -->
+    <md-content class="tulbat">
+      <div class="general-content" style="height:100vh;overflow-y:auto;">
+        <div ui-view></div>
+      </div>
+    
+    </md-content>
+
+    <!-- Right side nav -->
+    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Sidenav Right</h1>
+      </md-toolbar>
+      <md-content layout-padding>
+        <form>
+          <md-input-container>
+            <label for="testInput">Test input</label>
+            <input type="text" id="testInput"
+                   ng-model="data" md-autofocus>
+          </md-input-container>
+        </form>
+        <md-button ng-click="close()" class="md-primary">
+          Close Sidenav Right
+        </md-button>
+      </md-content>
+    </md-sidenav>
+
+  </section>
+</div>

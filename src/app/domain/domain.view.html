@@ -1,0 +1,58 @@
+<!-- Toolbar -->
+ <md-toolbar class="md-hue-2 tulbat">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="toggleLeft()" hide-gt-md>
+            <md-icon><i class="material-icons">menu</i></md-icon>
+        </md-button>
+        <h3 class="white">Dominios</h3>
+    </div>
+</md-toolbar> 
+
+<div class="container-custom">
+    <div class="row">
+        <div class="col-md-12">
+            <md-button ng-click="vm.addUser($event)" class="md-fab md-primary pull-right" aria-label="Use Android">
+                <md-icon><i class="material-icons">add</i></md-icon>
+            </md-button>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="container-custom">
+    <div class="row">
+        <div class="col-md-12">
+            <md-card>
+                <md-card-content>
+                    <table  class="table table-hover">
+                        <tr>
+                            <th class="td-table">Nombre</th>
+                            <th class="td-table">Apellido</th> 
+                            <th class="td-table">Correo</th>
+                            <th class="td-table">Teléfono</th>
+                            <th class="td-table">Acciones</th>
+                        </tr>
+                        <tbody>
+                            <tr ng-repeat="user in vm.users track by $index">
+                                <td>{{user.firstname}}</td>
+                                <td>{{user.lastname}}</td> 
+                                <td>{{user.email}}</td>
+                                <td>{{user.telephone}}</td>
+                                <td>
+                                    <md-button ng-click="vm.editUser($event,user)" class="md-icon-button" ng-click="null">
+                                        <md-icon><i class="material-icons">mode_edit</i></md-icon>
+                                    </md-button>
+                                    <md-button ng-click="vm.deleteUser(user.id)" class="md-icon-button" ng-click="null">
+                                        <md-icon><i class="material-icons">delete</i></md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>
+
+

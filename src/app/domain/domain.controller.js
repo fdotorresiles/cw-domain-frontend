@@ -8,25 +8,30 @@
     .controller('EditDomainController', EditDomainController);
 
   /** @ngInject */
-  function DomainController(HomeService,$mdDialog,$scope,$rootScope,$mdToast) {
+  function DomainController(HomeService,$mdDialog,$scope,$rootScope,$mdToast,DomainService) {
     var vm = this;   
 
     function init(){
-      HomeService.getUsers()
+      vm.loading = true;
+      DomainService.getUserDomain()
         .success(function(data){
-          vm.users = data;
+          for(var i = 0; i < data.length; i++){
+            data[i].periodicity = new Date(data[i].periodicity);            
+          }
+          vm.mydomains = data;
+          vm.loading = false;
         });
     }
     init();
 
-    $rootScope.$on("triggerAU",function(){
+    $rootScope.$on("triggerAD",function(){
       init();
     });
 
-    vm.addUser = function(ev){
+    vm.addDomain = function(ev){
       $mdDialog.show({
-        controller: AddUserController,
-        templateUrl: 'app/modals/addUser.modal.html',
+        controller: AddDomainController,
+        templateUrl: 'app/modals/addDomain.modal.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         controllerAs: 'vm',
@@ -35,8 +40,8 @@
       });
     }
 
-    vm.deleteUser = function(id){
-      HomeService.deleteUser(id)
+    vm.deleteDomain = function(id){
+      DomainService.deleteUserDomain(id)
         .success(function(data){
           $mdToast.show(
             $mdToast.simple()
@@ -48,11 +53,11 @@
         });
     }
     
-    vm.editUser = function(ev,user){
-      $rootScope.currentUser = user;
+    vm.editDomain = function(ev,domain){
+      $rootScope.currentDomain = domain;
       $mdDialog.show({
-        controller: EditUserController,
-        templateUrl: 'app/modals/editUser.modal.html',
+        controller: EditDomainController,
+        templateUrl: 'app/modals/editDomain.modal.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         controllerAs: 'vm',
@@ -63,19 +68,25 @@
 
   }
 
-  /* Add user */
-  function EditDomainController($scope,$mdDialog,HomeService,$rootScope){
+  /* Edit user */
+  function EditDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService){
     var vm = this;
 
-    vm.user = $rootScope.currentUser;
-    
-    vm.save = function(user){
-      HomeService.updateUser(user)
+    vm.domain = $rootScope.currentDomain;
+    vm.domain.periodicity = new Date(vm.domain.periodicity); 
+
+    function init(){
+      DomainService.getDomains()
         .success(function(data){
-          $mdDialog.hide();
-          $rootScope.$broadcast("triggerAU",{});
-      }).error(function(data){
-        alert(JSON.stringify(data));
+            vm.domains = data;
+            vm.userDomain = vm.domains[0];
+        });
+    }
+    
+    vm.save = function(){
+      DomainService.editUserDomain(vm.domain).success(function(){
+        $mdDialog.hide();
+        $rootScope.$broadcast("triggerAD",{});
       });
     }
 
@@ -92,19 +103,37 @@
     };
   }
 
-  /* Edit user */
-  function AddDomainController($scope,$mdDialog,HomeService,$rootScope){
+  /* Add user */
+  function AddDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService){
     var vm = this;
+    vm.currentDate = new Date();
+    vm.notificationType = 1;
 
-    vm.save = function(user){
-      user.stateId = 1;
-      HomeService.saveUser(user)
+    function init(){
+      DomainService.getDomains()
         .success(function(data){
-          $mdDialog.hide();
-          $rootScope.$broadcast("triggerAU",{});
-      }).error(function(data){
-        alert(JSON.stringify(data));
+            vm.domains = data;
+            vm.userDomain = vm.domains[0];
+        });
+    }
+    init();
+
+    vm.save = function(){
+      //var periocity = moment(vm.currentDate).format("hh:mm");
+
+      var object = {
+        "periodicity": vm.currentDate,
+        "notificationType": vm.notificationType,
+        "active": true,
+        "sendSeedEmail": true,
+        "userId": parseInt(localStorage.getItem("idcw")),
+        "domainId": vm.userDomain.id
+      }
+      DomainService.addUserDomain(object).success(function(){
+        $rootScope.$broadcast("triggerAD",{})
+        $mdDialog.hide();
       });
+      
     }
 
     $scope.hide = function() {
@@ -113,10 +142,6 @@
 
     $scope.cancel = function() {
       $mdDialog.cancel();
-    };
-
-    $scope.answer = function(answer) {
-      $mdDialog.hide(answer);
     };
   }
 })();

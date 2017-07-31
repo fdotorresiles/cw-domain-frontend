@@ -3,7 +3,18 @@
 
   angular
     .module('cw')
-    .config(config);
+    .config(config)
+    .config(function($mdThemingProvider){
+    $mdThemingProvider.theme("custom").primaryColor("blue",{
+      'default': '500',
+      'hue-1': '500',
+      'hue-2': '600'
+    }).accentColor("deep-purple",{
+      'default': '900',
+      'hue-1': '500',
+      'hue-2': '600'
+    });
+  });
 
   /** @ngInject */
   function config($logProvider, toastrConfig) {
@@ -17,5 +28,8 @@
     toastrConfig.preventDuplicates = true;
     toastrConfig.progressBar = true;
   }
+
+
+
 
 })();

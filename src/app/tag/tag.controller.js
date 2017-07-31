@@ -3,12 +3,12 @@
 
   angular
     .module('cw')
-    .controller('DomainController', DomainController)
-    .controller('AddDomainController', AddDomainController)
-    .controller('EditDomainController', EditDomainController);
+    .controller('TagController', TagController)
+    .controller('AddTagController', AddTagController)
+    .controller('EditTagController', EditTagController);
 
   /** @ngInject */
-  function DomainController(HomeService,$mdDialog,$scope,$rootScope,$mdToast,DomainService,$state) {
+  function TagController(HomeService,$mdDialog,$scope,$rootScope,$mdToast,DomainService) {
     var vm = this;   
 
     function init(){
@@ -66,14 +66,10 @@
       });
     }
 
-    vm.goTags = function(pid){
-      $state.go('main.tag',{id:pid});
-    }
-
   }
 
   /* Edit user */
-  function EditDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService){
+  function EditTagController($scope,$mdDialog,HomeService,$rootScope,DomainService){
     var vm = this;
 
     vm.domain = $rootScope.currentDomain;
@@ -108,7 +104,7 @@
   }
 
   /* Add user */
-  function AddDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService){
+  function AddTagController($scope,$mdDialog,HomeService,$rootScope,DomainService){
     var vm = this;
     vm.currentDate = new Date();
     vm.notificationType = 1;

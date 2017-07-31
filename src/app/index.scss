@@ -58,9 +58,18 @@ $icon-font-path: "../../bootstrap-sass/assets/fonts/bootstrap/";
   width: 60%!important;
 }
 
+.modal-ancho-mid{
+  width: 30%!important;
+}
+
+a:hover, a:focus {
+    color: black!important;
+}
+
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically
  */
 // injector
+@import "login/login.scss";
 // endinjector

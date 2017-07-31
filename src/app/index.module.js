@@ -11,5 +11,6 @@
       'ui.router', 
       'ui.bootstrap', 
       'toastr',
-      'ngMaterial']);
+      'ngMaterial',
+      'mdPickers']);
 })();

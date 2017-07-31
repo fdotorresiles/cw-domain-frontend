@@ -1,0 +1,77 @@
+<div class="container login_container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <md-card class="card-login">
+                <md-card-content>
+                    <md-tabs md-dynamic-height md-border-bottom>
+                        <md-tab label="Iniciar sesión">
+                            <div class="container-content">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Correo</label>
+                                    <input type="email" name="name" ng-model="vm.login.email" required>
+                                    <div ng-messages="add_user.name.$error" role="alert" multiple>
+                                    <div ng-message="required" class="my-message">Requerido.</div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>Contraseña</label>
+                                    <input type="password" name="name" ng-model="vm.login.password" required>
+                                    <div ng-messages="add_user.name.$error" role="alert" multiple>
+                                    <div ng-message="required" class="my-message">Requerido.</div>
+                                    </div>
+                                </md-input-container>
+                                <md-button ng-click="vm.auth(vm.login)" class="md-raised md-primary pull-right">
+                                    Ingresar
+                                </md-button>
+                            </div>
+                        </md-tab>
+                        <md-tab label="Registrarse">
+                            <div class="container-content">
+                                <form name="login">
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Nombre</label>
+                                        <input type="text" name="name" ng-model="vm.user.firstname" required>
+                                        <div ng-messages="login.name.$error" role="alert" multiple>
+                                        <div ng-message="required" class="my-message">Requerido.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Apellido</label>
+                                        <input type="text" name="lastname" ng-model="vm.user.lastname" required>
+                                        <div ng-messages="login.lastname.$error" role="alert" multiple>
+                                        <div ng-message="required" class="my-message">Requerido.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Teléfono</label>
+                                        <input type="text" name="phone" ng-model="vm.user.telephone" required>
+                                        <div ng-messages="login.phone.$error" role="alert" multiple>
+                                        <div ng-message="required" class="my-message">Requerido.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Correo</label>
+                                        <input type="email" name="email" ng-model="vm.user.email" required>
+                                        <div ng-messages="login.phone.$error" role="alert" multiple>
+                                        <div ng-message="required" class="my-message">Requerido.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Contraseña</label>
+                                        <input type="password" name="password" ng-model="vm.user.password" required>
+                                        <div ng-messages="login.password.$error" role="alert" multiple>
+                                        <div ng-message="required" class="my-message">Requerido.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-button ng-disabled="login.$invalid" ng-click="vm.register(vm.user)" class="md-raised md-primary pull-right">
+                                        Registrarse
+                                    </md-button>
+                                </form>
+                            </div>
+                        </md-tab>
+                    </md-tabs>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>

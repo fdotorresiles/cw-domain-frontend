@@ -8,14 +8,12 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('main', {
-        url: '/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainController',
+      .state('main.tag', {
+        url: 'tags/:id',
+        templateUrl: 'app/tag/tag.view.html',
+        controller: 'TagController',
         controllerAs: 'vm'
       });
-
-    $urlRouterProvider.otherwise('/login');
   }
 
 })();

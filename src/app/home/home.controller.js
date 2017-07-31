@@ -12,8 +12,10 @@
     var vm = this;   
 
     function init(){
+      vm.loading = true;
       HomeService.getUsers()
         .success(function(data){
+          vm.loading = false;
           vm.users = data;
         });
     }

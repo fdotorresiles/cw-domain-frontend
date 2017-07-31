@@ -15,19 +15,39 @@
         return public_api;
 
         function getUsers(){
-            return $http.get(API.url + '/UserCustoms');
+            return $http({
+                method: 'GET',
+                url: API.url + '/UserCustoms',
+                //data: vista,
+                headers: {'Authorization': localStorage.getItem('tokencw')}
+            });
         }
 
         function saveUser(user){
-            return $http.post(API.url + '/UserCustoms',user);
+            return $http({
+                method: 'POST',
+                url: API.url + '/UserCustoms',
+                data: user,
+                headers: {'Authorization': localStorage.getItem('tokencw')}
+            });
         }
 
         function updateUser(user){
-            return $http.patch(API.url + '/UserCustoms/'+user.id,user);
+            return $http({
+                method: 'PATCH',
+                url: API.url + '/UserCustoms/'+user.id,
+                data: user,
+                headers: {'Authorization': localStorage.getItem('tokencw')}
+            });
         }
 
         function deleteUser(id){
-            return $http.delete(API.url + '/UserCustoms/'+id);
+            return $http({
+                method: 'DELETE',
+                url: API.url + '/UserCustoms/'+id,
+                //data: user,
+                headers: {'Authorization': localStorage.getItem('tokencw')}
+            });
         }
     }
 })();

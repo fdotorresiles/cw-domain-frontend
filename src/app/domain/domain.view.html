@@ -41,6 +41,9 @@
                                     <p class="label label-info" ng-if="domain.notificationType == 2">Mensje de texto</p>    
                                 </td> 
                                 <td>
+                                    <md-button ng-click="vm.goTags(domain.id)" class="md-icon-button">
+                                        <md-icon><i class="material-icons">bookmark</i></md-icon>
+                                    </md-button>
                                     <md-button ng-click="vm.editDomain($event,domain)" class="md-icon-button">
                                         <md-icon><i class="material-icons">mode_edit</i></md-icon>
                                     </md-button>

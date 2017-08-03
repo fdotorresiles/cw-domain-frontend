@@ -8,17 +8,17 @@
     .controller('EditTagController', EditTagController);
 
   /** @ngInject */
-  function TagController(HomeService,$mdDialog,$scope,$rootScope,$mdToast,DomainService) {
-    var vm = this;   
+  function TagController(HomeService,$mdDialog,$scope,$rootScope,$mdToast,DomainService,$stateParams) {
+    var vm = this;
+
+    vm.tags = [];
+    vm.idDomain = $stateParams.id;
 
     function init(){
       vm.loading = true;
-      DomainService.getUserDomain()
+      DomainService.myTagsDomain(vm.idDomain)
         .success(function(data){
-          for(var i = 0; i < data.length; i++){
-            data[i].periodicity = new Date(data[i].periodicity);            
-          }
-          vm.mydomains = data;
+          vm.allTags = data;
           vm.loading = false;
         });
     }
@@ -27,6 +27,36 @@
     $rootScope.$on("triggerAD",function(){
       init();
     });
+
+    vm.removeTag = function(id){
+      DomainService.deleteMyTags(vm.idDomain,id)
+        .success(function () {
+          init();
+        });
+    }
+
+    vm.addTags = function(){
+      var objects = [];
+      for(var i = 0; i < vm.tags.length; i++){
+        var object = {
+          "tag": vm.tags[i],
+          "active": true,
+          "domainpertagkey": vm.idDomain
+        }
+        objects.push(object);
+      }
+
+      sendTags(objects);
+    }
+
+    function sendTags(tags){
+      for(var i = 0; i < tags.length;i++){
+        DomainService.saveMyTags(vm.idDomain,tags[i]).success(function(){});
+        if(i == (tags.length-1)) {
+          init();
+        }
+      }
+    }
 
     vm.addDomain = function(ev){
       $mdDialog.show({
@@ -52,7 +82,7 @@
           init();
         });
     }
-    
+
     vm.editDomain = function(ev,domain){
       $rootScope.currentDomain = domain;
       $mdDialog.show({
@@ -73,7 +103,7 @@
     var vm = this;
 
     vm.domain = $rootScope.currentDomain;
-    vm.domain.periodicity = new Date(vm.domain.periodicity); 
+    vm.domain.periodicity = new Date(vm.domain.periodicity);
 
     function init(){
       DomainService.getDomains()
@@ -82,7 +112,7 @@
             vm.userDomain = vm.domains[0];
         });
     }
-    
+
     vm.save = function(){
       DomainService.editUserDomain(vm.domain).success(function(){
         $mdDialog.hide();
@@ -133,7 +163,7 @@
         $rootScope.$broadcast("triggerAD",{})
         $mdDialog.hide();
       });
-      
+
     }
 
     $scope.hide = function() {

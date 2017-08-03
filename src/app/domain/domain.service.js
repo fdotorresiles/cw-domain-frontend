@@ -5,15 +5,45 @@
         .factory('DomainService', DomainService);
 
     function DomainService ($http,API) {
-        
+
         var public_api = {
             getDomains : getDomains,
             addUserDomain : addUserDomain,
             getUserDomain : getUserDomain,
             editUserDomain : editUserDomain,
-            deleteUserDomain : deleteUserDomain
+            deleteUserDomain : deleteUserDomain,
+            saveMyTags : saveMyTags,
+            myTagsDomain : myTagsDomain,
+            deleteMyTags : deleteMyTags
         }
         return public_api;
+
+        function deleteMyTags(id,fk){
+          return $http({
+            method: 'DELETE',
+            url: API.url + '/DomainsperUsers/'+id+'/tagperDomainxUsers/'+fk,
+            //data: data,
+            headers: {'Authorization': localStorage.getItem('tokencw')}
+          });
+        }
+
+        function myTagsDomain(id){
+          return $http({
+            method: 'GET',
+            url: API.url + '/DomainsperUsers/'+id+'/tagperDomainxUsers',
+            //data: data,
+            headers: {'Authorization': localStorage.getItem('tokencw')}
+          });
+        }
+
+        function saveMyTags(id,data){
+          return $http({
+            method: 'POST',
+            url: API.url + '/DomainsperUsers/'+id+'/tagperDomainxUsers',
+            data: data,
+            headers: {'Authorization': localStorage.getItem('tokencw')}
+          });
+        }
 
         function getDomains(){
             return $http({

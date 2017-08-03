@@ -6,7 +6,7 @@
         </md-button>
         <h3 class="white">Etiquetas</h3>
     </div>
-</md-toolbar> 
+</md-toolbar>
 <md-progress-linear ng-if="vm.loading" class="md-accent" md-mode="query"></md-progress-linear>
 
 <div class="container-custom">
@@ -21,18 +21,35 @@
 
 <!-- Content -->
 <div class="container-custom">
+  <div class="row">
+    <div class="col-md-12">
+      <md-card>
+        <md-card-content>
+          <label class="custom-tag" ng-repeat="tag in vm.allTags">{{tag.tag}}
+            <md-icon ng-click="vm.removeTag(tag.id)"><i class="material-icons" style="cursor: pointer;outline-color:">close</i></md-icon></label>
+        </md-card-content>
+        <md-card-action layout="row" layou-align="center center">
+        </md-card-action>
+      </md-card>
+    </div>
+  </div>
     <div class="row">
         <div class="col-md-12">
             <md-card>
                 <md-card-content>
-                    <md-chips ng-model="ctrl.roFruitNames" name="fruitName" readonly="false"
-                        md-removable="ctrl.removable" md-max-chips="5" placeholder="Enter a fruit...">
-                    <md-chip-template>
-                    <strong>{{$chip}}</strong>
-                    <em>(fruit)</em>
-                    </md-chip-template>
+                  <md-chips
+                    ng-model="vm.tags"
+                    readonly="false"
+                    md-removable="ctrl.removable"
+                    placeholder="Ingrese una palabra ..."
+                    delete-button-label="Remover palabra"
+                    delete-hint="Press delete to remove tag"
+                    secondary-placeholder="Nueva palabra ..."></md-chips>
                 </md-chips>
                 </md-card-content>
+              <md-card-action layout="row" layou-align="center center">
+                <md-button ng-click="vm.addTags()" class="md-raised md-primary">Agregar</md-button>
+              </md-card-action>
             </md-card>
         </div>
     </div>

@@ -8,10 +8,14 @@
   /** @ngInject */
   function MainController($scope, $timeout, $mdSidenav, $log,$state) {
     var vm = this;
-    
-    // Init state
-    $state.go('main.home');
 
+    // Init state
+    $state.go('main.domain');
+
+    vm.logout = function(){
+      localStorage.clear();
+      $state.go('landing')
+    }
     // Binds
     $scope.toggleLeft = buildDelayedToggler('left');
     $scope.toggleRight = buildToggler('right');

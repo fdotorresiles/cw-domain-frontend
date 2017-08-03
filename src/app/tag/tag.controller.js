@@ -53,6 +53,7 @@
       for(var i = 0; i < tags.length;i++){
         DomainService.saveMyTags(vm.idDomain,tags[i]).success(function(){});
         if(i == (tags.length-1)) {
+          vm.tags = [];
           init();
         }
       }

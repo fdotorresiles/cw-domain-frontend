@@ -5,12 +5,13 @@
     .module('cw', ['ngAnimate',
      'ngCookies',
       'ngTouch',
-      'ngSanitize', 
-      'ngMessages', 
-      'ngAria', 
-      'ui.router', 
-      'ui.bootstrap', 
+      'ngSanitize',
+      'ngMessages',
+      'ngAria',
+      'ui.router',
+      'ui.bootstrap',
       'toastr',
       'ngMaterial',
-      'mdPickers']);
+      'mdPickers',
+      'ngParallax']);
 })();

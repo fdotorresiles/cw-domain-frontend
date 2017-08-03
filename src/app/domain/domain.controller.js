@@ -9,16 +9,18 @@
 
   /** @ngInject */
   function DomainController(HomeService,$mdDialog,$scope,$rootScope,$mdToast,DomainService,$state) {
-    var vm = this;   
+    var vm = this;
 
     function init(){
       vm.loading = true;
       DomainService.getUserDomain()
         .success(function(data){
           for(var i = 0; i < data.length; i++){
-            data[i].periodicity = new Date(data[i].periodicity);            
+            data[i].periodicity = new Date(data[i].periodicity);
           }
           vm.mydomains = data;
+          vm.loading = false;
+        }).error(function(e){
           vm.loading = false;
         });
     }
@@ -52,7 +54,7 @@
           init();
         });
     }
-    
+
     vm.editDomain = function(ev,domain){
       $rootScope.currentDomain = domain;
       $mdDialog.show({
@@ -77,7 +79,7 @@
     var vm = this;
 
     vm.domain = $rootScope.currentDomain;
-    vm.domain.periodicity = new Date(vm.domain.periodicity); 
+    vm.domain.periodicity = new Date(vm.domain.periodicity);
 
     function init(){
       DomainService.getDomains()
@@ -86,7 +88,7 @@
             vm.userDomain = vm.domains[0];
         });
     }
-    
+
     vm.save = function(){
       DomainService.editUserDomain(vm.domain).success(function(){
         $mdDialog.hide();
@@ -137,7 +139,7 @@
         $rootScope.$broadcast("triggerAD",{})
         $mdDialog.hide();
       });
-      
+
     }
 
     $scope.hide = function() {

@@ -8,14 +8,13 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('main', {
-        url: '/main/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainController',
+      .state('landing', {
+        url: '/landing',
+        templateUrl: 'app/landing/landing.view.html',
+        controller: 'LandingController',
         controllerAs: 'vm'
       });
 
-    $urlRouterProvider.otherwise('/landing');
   }
 
 })();

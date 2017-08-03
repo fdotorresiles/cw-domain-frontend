@@ -1,7 +1,7 @@
 <div layout="column" style="height:100vh;" ng-cloak>
   <section layout="row" flex>
 
-    <!-- Side nav mobile -->  
+    <!-- Side nav mobile -->
     <md-sidenav
         class="md-sidenav-left"
         md-component-id="left"
@@ -12,22 +12,22 @@
       </md-toolbar>
       <md-content>
         <md-list style="position:relative">
-          <md-list-item ui-sref="main.home" ui-sref-active="active-menu">
+          <!--<md-list-item ui-sref="main.home" ui-sref-active="active-menu">
             <md-icon><i class="material-icons">perm_identity</i></md-icon>
             <p>Usuarios</p>
-          </md-list-item>
+          </md-list-item>-->
           <md-list-item ui-sref="main.domain" ui-sref-active="active-menu">
             <md-icon><i class="material-icons">cloud_queue</i></md-icon>
             <p>Mis Dominios</p>
           </md-list-item>
-          <md-list-item ui-sref="main.search" ui-sref-active="active-menu">
-            <md-icon><i class="material-icons">search</i></md-icon>
-            <p>Busqueda</p>
+          <md-list-item ui-sref="null" ui-sref-active="active-menu" ng-click="vm.logout()">
+            <md-icon><i class="material-icons">lock_outline</i></md-icon>
+            <p>Cerrar sesión</p>
           </md-list-item>
-          <md-list-item ui-sref="main.settings" ui-sref-active="active-menu">
+          <!--<md-list-item ui-sref="main.settings" ui-sref-active="active-menu">
             <md-icon><i class="material-icons">settings</i></md-icon>
             <p>Mi Configuración</p>
-          </md-list-item>
+          </md-list-item>-->
         </md-list>
       </md-content>
     </md-sidenav>
@@ -37,7 +37,7 @@
       <div class="general-content" style="height:100vh;overflow-y:auto;">
         <div ui-view></div>
       </div>
-    
+
     </md-content>
 
     <!-- Right side nav -->

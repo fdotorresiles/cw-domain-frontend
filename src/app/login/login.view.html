@@ -1,3 +1,5 @@
+<md-progress-linear ng-if="vm.loading" md-mode="query" class="md-accent"></md-progress-linear>
+
 <div class="container login_container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -20,7 +22,7 @@
                                     <div ng-message="required" class="my-message">Requerido.</div>
                                     </div>
                                 </md-input-container>
-                                <md-button ng-click="vm.auth(vm.login)" class="md-raised md-primary pull-right">
+                                <md-button ng-disabled="vm.btn_login" ng-click="vm.auth(vm.login)" class="md-raised md-primary pull-right">
                                     Ingresar
                                 </md-button>
                             </div>
@@ -63,7 +65,7 @@
                                         <div ng-message="required" class="my-message">Requerido.</div>
                                         </div>
                                     </md-input-container>
-                                    <md-button ng-disabled="login.$invalid" ng-click="vm.register(vm.user)" class="md-raised md-primary pull-right">
+                                    <md-button ng-disabled="login.$invalid || vm.btn_register" ng-click="vm.register(vm.user)" class="md-raised md-primary pull-right">
                                         Registrarse
                                     </md-button>
                                 </form>
@@ -75,3 +77,4 @@
         </div>
     </div>
 </div>
+

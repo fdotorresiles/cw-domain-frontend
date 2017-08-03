@@ -18,7 +18,8 @@
     "animate.css": "~3.4.0",
     "angular": "~1.5.3",
     "angular-material": "^1.1.4",
-    "mdPickers": "^0.7.5"
+    "mdPickers": "^0.7.5",
+    "ng-simple-parallax": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.3"

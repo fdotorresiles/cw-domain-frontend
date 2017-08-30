@@ -1,0 +1,64 @@
+<!-- Toolbar -->
+<md-toolbar class="md-hue-2 tulbat">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="toggleLeft()" hide-gt-md>
+            <md-icon><i class="material-icons">menu</i></md-icon>
+        </md-button>
+        <h3 class="white">Mi perfil</h3>
+        <span flex></span>
+    </div>
+</md-toolbar> 
+<md-progress-linear ng-if="vm.loading" class="md-accent" md-mode="query"></md-progress-linear>
+
+<!-- Content -->
+<div class="container-custom">
+    <div class="row">
+        <div class="col-md-12">
+            <md-card>
+                <md-card-content>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Nombre</label>
+                                <input ng-disabled="vm.edit" type="text" name="name" ng-model="vm.user.firstname" required>
+                                <div ng-messages="login.name.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">Requerido.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Teléfono</label>
+                                <input ng-disabled="vm.edit" type="text" name="phone" ng-model="vm.user.telephone" required>
+                                <div ng-messages="login.phone.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">Requerido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-6">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Apellido</label>
+                                <input ng-disabled="vm.edit" type="text" name="lastname" ng-model="vm.user.lastname" required>
+                                <div ng-messages="login.lastname.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">Requerido.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Correo</label>
+                                <input ng-disabled="vm.edit" type="email" name="email" ng-model="vm.user.email" required>
+                                <div ng-messages="login.phone.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">Requerido.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button ng-click="vm.cancel()"  class="md-raised">Cancelar</md-button>
+                    <md-button ng-if="vm.edit_button" ng-click="vm.edit_input()"  class="md-raised md-primary">Editar</md-button>
+                    <md-button ng-if="vm.save_button" ng-click="vm.save_input()"  class="md-raised md-primary">Guardar</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+</div>
+
+

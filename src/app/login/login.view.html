@@ -44,13 +44,23 @@
                                         <div ng-message="required" class="my-message">Requerido.</div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container class="md-block" flex-gt-sm>
-                                        <label>Teléfono</label>
-                                        <input type="text" name="phone" ng-model="vm.user.telephone" required>
-                                        <div ng-messages="login.phone.$error" role="alert" multiple>
-                                        <div ng-message="required" class="my-message">Requerido.</div>
-                                        </div>
-                                    </md-input-container>
+                                    <div layout="row">
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>Código de área</label>
+                                            <md-select ng-model="vm.code">
+                                                <md-option ng-repeat="code in vm.codes track by $index" value="{{code.dial_code}}">
+                                                {{code.name}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Teléfono</label>
+                                                <input type="text" name="phone" ng-model="vm.user.telephone" required>
+                                                <div ng-messages="login.phone.$error" role="alert" multiple>
+                                                <div ng-message="required" class="my-message">Requerido.</div>
+                                                </div>
+                                            </md-input-container>
+                                    </div>
                                     <md-input-container class="md-block" flex-gt-sm>
                                         <label>Correo</label>
                                         <input type="email" name="email" ng-model="vm.user.email" required>
@@ -70,6 +80,22 @@
                                     </md-button>
                                 </form>
                             </div>
+                        </md-tab>
+                        <md-tab label="Recuperar contraseña">
+                          <div class="container-content">
+                            <form name="reset">
+                              <md-input-container class="md-block" flex-gt-sm>
+                                <label>Correo</label>
+                                <input type="email" name="recovery_email" ng-model="vm.reset.email" required>
+                                <div ng-messages="reset.recovery_email.$error" role="alert" multiple>
+                                  <div ng-message="required" class="my-message">Requerido.</div>
+                                </div>
+                              </md-input-container>
+                              <md-button ng-disabled="reset.$invalid" ng-click="vm.send_recovery(vm.reset.email)" class="md-raised md-primary pull-right">
+                                enviar
+                              </md-button>
+                            </form>
+                          </div>
                         </md-tab>
                     </md-tabs>
                 </md-card-content>

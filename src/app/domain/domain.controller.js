@@ -75,21 +75,64 @@
   }
 
   /* Edit user */
-  function EditDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService){
+  function EditDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService,$q,$timeout){
     var vm = this;
 
     vm.domain = $rootScope.currentDomain;
     vm.domain.periodicity = new Date(vm.domain.periodicity);
+    vm.autoComplete = true;
+    vm.simulateQuery = true;
+    vm.isDisabled    = false;
+
+    vm.querySearch = querySearch;
+    vm.selectedItemChange = selectedItemChange;
+    vm.searchTextChange   = searchTextChange;
+
+
+    function querySearch (query) {
+      var results = query ? vm.domains.filter( createFilterFor(query) ) : vm.domains,deferred;
+      if (vm.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () {
+          deferred.resolve( results );
+        }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(item) {
+        return (item.value.indexOf(lowercaseQuery) === 0);
+      };
+
+    }
+
+    function searchTextChange(text) {}
+    function selectedItemChange(item) {}
 
     function init(){
       DomainService.getDomains()
         .success(function(data){
-            vm.domains = data;
-            vm.userDomain = vm.domains[0];
+          for(var i = 0 ; i < data.length;i ++){
+            data[i].value = data[i].name.toLowerCase();
+          }
+          vm.domains = data;
+          DomainService.domainById(vm.domain.domainId)
+            .success(function(data){
+              vm.autoComplete = false;
+              vm.selectedItem = data;
+            });
         });
+
+
     }
+    init();
 
     vm.save = function(){
+      vm.domain.domainId = vm.selectedItem.id;
       DomainService.editUserDomain(vm.domain).success(function(){
         $mdDialog.hide();
         $rootScope.$broadcast("triggerAD",{});
@@ -110,16 +153,51 @@
   }
 
   /* Add user */
-  function AddDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService){
+  function AddDomainController($scope,$mdDialog,HomeService,$rootScope,DomainService,$q,$timeout){
     var vm = this;
     vm.currentDate = new Date();
     vm.notificationType = 1;
 
+    vm.simulateQuery = true;
+    vm.isDisabled    = false;
+
+    vm.querySearch = querySearch;
+    vm.selectedItemChange = selectedItemChange;
+    vm.searchTextChange   = searchTextChange;
+
+
+    function querySearch (query) {
+      var results = query ? vm.domains.filter( createFilterFor(query) ) : vm.domains,deferred;
+      if (vm.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () {
+          deferred.resolve( results );
+          }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(item) {
+        return (item.value.indexOf(lowercaseQuery) === 0);
+      };
+
+    }
+
+    function searchTextChange(text) {}
+    function selectedItemChange(item) {}
+
+
     function init(){
       DomainService.getDomains()
         .success(function(data){
-            vm.domains = data;
-            vm.userDomain = vm.domains[0];
+          for(var i = 0 ; i < data.length;i ++){
+            data[i].value = data[i].name.toLowerCase();
+          }
+          vm.domains = data;
         });
     }
     init();
@@ -133,7 +211,7 @@
         "active": true,
         "sendSeedEmail": true,
         "userId": parseInt(localStorage.getItem("idcw")),
-        "domainId": vm.userDomain.id
+        "domainId": vm.selectedItem.id
       }
       DomainService.addUserDomain(object).success(function(){
         $rootScope.$broadcast("triggerAD",{})

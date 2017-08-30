@@ -10,10 +10,30 @@
             getUsers : getUsers,
             saveUser : saveUser,
             deleteUser : deleteUser,
-            updateUser : updateUser
+            updateUser : updateUser,
+            myprofile : myprofile,
+            saveMyProfile : saveMyProfile
         }
         return public_api;
 
+        function saveMyProfile(user){
+            return $http({
+                method: 'PATCH',
+                url: API.url + '/UserCustoms/'+localStorage.getItem('idcw'), 
+                data: user,
+                headers: {'Authorization': localStorage.getItem('tokencw')}
+            });
+        }
+        
+        function myprofile(){
+            return $http({
+                method: 'GET',
+                url: API.url + '/UserCustoms/'+localStorage.getItem('idcw'),
+                //data: vista,
+                headers: {'Authorization': localStorage.getItem('tokencw')}
+            });
+        }
+        
         function getUsers(){
             return $http({
                 method: 'GET',

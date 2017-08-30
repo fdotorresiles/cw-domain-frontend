@@ -1,0 +1,43 @@
+<md-progress-linear ng-if="vm.loading" md-mode="query" class="md-accent"></md-progress-linear>
+
+<div class="container login_container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <md-card class="card-login">
+        <md-card-content>
+          <form name="reset">
+            <md-tabs md-dynamic-height md-border-bottom>
+              <md-tab label="Cambio de contraseña">
+                <div class="container-content">
+                  <md-input-container class="md-block" flex-gt-sm>
+                    <label>Contraseña</label>
+                    <input type="password" name="password" ng-model="vm.password" required>
+                    <div ng-messages="reset.password.$error" role="alert" multiple>
+                      <div ng-message="required" class="my-message">Requerido.</div>
+                    </div>
+                  </md-input-container>
+                  <md-input-container class="md-block" flex-gt-sm>
+                    <label>Repetir la contraseña</label>
+                    <input type="password" name="repeat_password" ng-model="vm.repeat" required>
+
+                    <div ng-messages="reset.repeat_password.$error" role="alert" multiple>
+                      <div ng-message="required" class="my-message">Requerido.</div>
+                    </div>
+                    <div ng-if="vm.password != vm.repeat" role="alert" multiple>
+                      <div class="my-message" style="color: rgb(221,44,0);font-size: 12px">Contraseñas diferentes.</div>
+                    </div>
+
+                  </md-input-container>
+                  <md-button ng-click="vm.send()" class="md-raised md-primary pull-right">
+                    Cambiar
+                  </md-button>
+                </div>
+              </md-tab>
+            </md-tabs>
+          </form>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</div>
+

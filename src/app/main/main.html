@@ -12,10 +12,14 @@
       </md-toolbar>
       <md-content>
         <md-list style="position:relative">
-          <!--<md-list-item ui-sref="main.home" ui-sref-active="active-menu">
+          <md-list-item ng-if="vm.rol == 'admin'" ui-sref="main.home" ui-sref-active="active-menu">
+            <md-icon><i class="material-icons">settings</i></md-icon>
+            <p>Administración</p>
+          </md-list-item>
+          <md-list-item ui-sref="main.profile" ui-sref-active="active-menu">
             <md-icon><i class="material-icons">perm_identity</i></md-icon>
-            <p>Usuarios</p>
-          </md-list-item>-->
+            <p>Mi Perfil</p>
+          </md-list-item>
           <md-list-item ui-sref="main.domain" ui-sref-active="active-menu">
             <md-icon><i class="material-icons">cloud_queue</i></md-icon>
             <p>Mis Dominios</p>

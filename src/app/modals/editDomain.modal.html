@@ -11,16 +11,29 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-        
+
         <!-- Cuando se puedan escoger más dominios -->
-        <md-input-container class="md-block" flex-gt-sm ng-if="false" >
-            <label>Dominios</label>
-            <md-select ng-model="vm.userDomain" ng-disabled="true">
-              <md-option ng-repeat="domain in vm.domains" value="{{domain.id}}">
-                {{domain.name}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+        <div style="padding-top: 1em;padding-bottom: 2em">
+          <md-autocomplete
+            ng-disabled="vm.autoComplete"
+            md-no-cache="vm.noCache"
+            md-selected-item="vm.selectedItem"
+            md-search-text-change="vm.searchTextChange(vm.searchText)"
+            md-search-text="vm.searchText"
+            md-selected-item-change="vm.selectedItemChange(item)"
+            md-items="item in vm.querySearch(vm.searchText)"
+            md-item-text="item.name"
+            md-min-length="0"
+            placeholder="Seleccione un dominio"
+            md-menu-class="autocomplete-custom-template">
+            <md-item-template>
+              <span class="item-title">
+                <md-icon><i class="material-icons">cloud_queue</i></md-icon>
+                <span> {{item.name}} </span>
+              </span>
+            </md-item-template>
+          </md-autocomplete>
+        </div>
 
           <div>
             <label>Periocidad</label>
@@ -32,7 +45,7 @@
             <md-radio-button value="1" class="md-accent">Correo</md-radio-button>
             <md-radio-button value="2" class="md-accent">Mensaje de texto</md-radio-button>
           </md-radio-group>
-         
+
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">

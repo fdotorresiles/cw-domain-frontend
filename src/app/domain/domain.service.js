@@ -14,9 +14,20 @@
             deleteUserDomain : deleteUserDomain,
             saveMyTags : saveMyTags,
             myTagsDomain : myTagsDomain,
-            deleteMyTags : deleteMyTags
+            deleteMyTags : deleteMyTags,
+            domainById:domainById
         }
         return public_api;
+
+        function domainById(id){
+          return $http({
+            method: 'GET',
+            url: API.url + '/Domains/'+id,
+            //data: data,
+            headers: {'Authorization': localStorage.getItem('tokencw')}
+          });
+        }
+
 
         function deleteMyTags(id,fk){
           return $http({

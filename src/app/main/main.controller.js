@@ -9,8 +9,11 @@
   function MainController($scope, $timeout, $mdSidenav, $log,$state) {
     var vm = this;
 
+    vm.rol = localStorage.getItem("rol");
+
     // Init state
     $state.go('main.domain');
+
 
     vm.logout = function(){
       localStorage.clear();
